@@ -1,0 +1,17 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.bg{
+	background-image: url("../img/sf1.jpg");
+	height: 485px;
+	font-family: '华文行楷';
+	color: white;
+	font-size: large;
+}
+#index{
+	font-family: '华文行楷';
+	color: springgreen;
+	height: 300px;
+	/*background-image: url("../img/timg.jpg");*/
+}

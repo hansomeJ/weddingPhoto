@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'admin',
     'cameraman',
     'customer',
+    'comment',
 ]
 
 MIDDLEWARE = [

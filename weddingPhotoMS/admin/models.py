@@ -46,3 +46,10 @@ class Space(models.Model):
     s_detail = models.TextField(verbose_name='场地简介')
     s_sale_num = models.IntegerField(default=0, verbose_name='场地热度')
 
+
+# 定义通知公告表
+class Notice(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name='订单主键')
+    notice_title = models.CharField(max_length=200, verbose_name='公告主键')
+    notice_content = models.TextField(verbose_name='公告内容')
+    notice_time = models.DateTimeField(auto_now_add=True, verbose_name='公告发布时间')

@@ -1,8 +1,8 @@
 from django.db import models
-from ..admin.models import Bridal_Veil as bv
-from ..admin.models import Bridal_Veils as bvs
-from ..cameraman.models import Cameraman
-from ..admin.models import Space
+from myAdmin.models import Bridal_Veil as bv
+from myAdmin.models import Bridal_Veils as bvs
+from cameraman.models import Cameraman
+from myAdmin.models import Space
 
 
 # 创建顾客表
@@ -26,7 +26,7 @@ class Order(models.Model):
     order_selectTime = models.DateTimeField(verbose_name='选片时间')
     order_getTime = models.DateTimeField(verbose_name='取片时间')
     order_space = models.ForeignKey(to=Space, to_field='id', verbose_name='场地')
-    order_cameraman = models.ForeignKey(to=Cameraman, to_field=id, verbose_name='摄影师')
+    order_cameraman = models.ForeignKey(to=Cameraman, to_field='id', verbose_name='摄影师')
     order_moneyNum = models.IntegerField(verbose_name='订单总价')
     order_starTime = models.DateTimeField(auto_now_add=True, verbose_name='订单开始时间')
     order_endTime = models.DateTimeField(verbose_name='订单结束时间')

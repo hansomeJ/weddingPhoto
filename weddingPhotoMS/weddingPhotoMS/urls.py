@@ -17,7 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
 from weddingPhotoMS import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    # 管理员模块路由
+    url(r'^myAdmin/', include('myAdmin.urls', namespace='Admin')),
     url(r'', views.index),
 ]

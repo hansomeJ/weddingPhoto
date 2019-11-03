@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # 管理员模块路由
     url(r'^myAdmin/', include('myAdmin.urls', namespace='Admin')),
+    url(r'^cameraman/', include('cameraman.urls', namespace='cameraman')),
+    url(r'^customer/', include('customer.urls', namespace='customer')),
     url(r'', views.index),
 ]

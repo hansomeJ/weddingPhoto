@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="{% static 'css/common1.css' %}">
     <script type="text/javascript" src="{% static 'js/lib/jQuery3.2.1/jquery-3.2.1.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/lib/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    {% block header %}
+    <meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">
+	<script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>
+    {% endblock %}
     <script>
         function change_code() {
             // $("#mycode2").attr("src", "/blog/code/?id=" + Math.random())
@@ -35,6 +45,7 @@
             });
         }
     </script>
+
 </head>
 <body id='background' style="background-image: url('/static/img/background/background.gif');background-size: cover">
 {% block nav %}
@@ -49,12 +60,12 @@
                 <li role="presentation"><a href="#">场地</a></li>
                 <li role="presentation"><a href="#">摄影师</a></li>
             </ul>
-
+            <span>当前用户：{{ request.session.login_user.name }}</span>
             <ul class="nav nav-pills navbar-nav  navbar-right">
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                       aria-expanded="false">设置 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -64,12 +75,63 @@
                     </ul>
                 </li>
             </ul>
+
             {% endif %}
-            <div class="navbar-nav navbar-right btn-group btn-group-sm">
-                <div class="form-group">
-                    <audio src="/static/media/audio/bg_music.mp3" controls></audio>
-                </div>
-            </div>
+            {% if request.session.login_admin %}
+            <ul class="  nav navbar-nav nav-pills ">
+                <li role="presentation" class="active"><a href="#">首页</a></li>
+                <li role="presentation"><a href="#">待定1</a></li>
+                <li role="presentation"><a href="#">待定2</a></li>
+                <li role="presentation"><a href="#">待定3</a></li>
+            </ul>
+
+            <!--            <span>当前用户：{{ request.session.login_admin.name }}</span>-->
+
+            <ul class="nav nav-pills navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">设置 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav nav-pills navbar-right text-center">
+                <li role="presentation" ><a class=" label label-primary">当前用户:</a></li>
+                <li role="presentation" ><a class="label label-info">{{ request.session.login_admin.name }}</a></li>
+            </ul>
+            {% endif %}
+            {% if request.session.login_cameraman %}
+            <ul class="  nav navbar-nav nav-pills ">
+                <li role="presentation" class="active"><a href="#">首页</a></li>
+                <li role="presentation"><a href="#">待定1</a></li>
+                <li role="presentation"><a href="#">待定2</a></li>
+                <li role="presentation"><a href="#">待定3</a></li>
+            </ul>
+            <span>当前用户：{{ request.session.login_cameraman.name }}</span>
+
+            <ul class="nav nav-pills navbar-nav  navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">设置 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            {% endif %}
+
         </div>
     </div><!-- /.container-fluid -->
 </nav>
@@ -315,15 +377,13 @@
                     success: function (data) {
                         if (data.Success) {
                             $('#re_msg').empty().text('登录成功！');
-                            if ($type === '管理员'){
-                                setTimeout(window.location.href='{% url "Admin:index" %}',1000);
-                            }
-                            else if ($type === '摄影师'){
+                            if ($type === '管理员') {
+                                setTimeout(window.location.href = '{% url "Admin:index" %}', 1000);
+                            } else if ($type === '摄影师') {
 
-                                setTimeout(window.location.href='{% url "cameraman:index" %}',1000);
-                            }
-                            else{
-                                setTimeout(window.location.href='{% url "customer:index" %}',1000);
+                                setTimeout(window.location.href = '{% url "cameraman:index" %}', 1000);
+                            } else {
+                                setTimeout(window.location.href = '{% url "customer:index" %}', 1000);
                             }
 
                         }
@@ -334,15 +394,15 @@
                                 window.location.reload();
                             }, 1000);
                         }
-                        if (data.pwd_error){
+                        if (data.pwd_error) {
                             $('#re_msg').empty().text('密码错误！');
 
                             setTimeout(function () {
                                 window.location.reload();
                             }, 1000);
                         }
-                        if (data.Failed){
-                            $msg = '用户'+$name+'不存在！' ;
+                        if (data.Failed) {
+                            $msg = '用户' + $name + '不存在！';
                             $('#re_msg').empty().text($msg);
 
                             setTimeout(function () {

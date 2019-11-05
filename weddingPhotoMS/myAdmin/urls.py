@@ -9,4 +9,6 @@ urlpatterns = [
     url(r'code/', views.code, name='code'),
     url(r'login/', views.login, name='login'),
     url(r'index/', views.index, name='index'),
+    url(r'test/', views.test, name='test'),
+    url(r'addBv/', views.addBv, name='addBv'),
 ]

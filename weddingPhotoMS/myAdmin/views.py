@@ -109,9 +109,10 @@ def login(request):
                 # 密码错误
                 return JsonResponse({'pwd_error': 1})
             else:
-                # 用户名密码匹配，重定向到管理员首页面
-                # return redirect(reverse('Admin:index'))
+                # 用户名与密码匹配，登录成功
                 result = {'Success': True}
+                # 把管理员信息存入缓存
+                request.session['login_admin'] = {'name': name}
                 return JsonResponse(result)
         except Exception as e:
             # 该用户不存在
@@ -124,8 +125,8 @@ def login(request):
                 # 密码错误
                 return JsonResponse({'pwd_error': 1})
             else:
-                # 用户名密码匹配，重定向到管理员首页面
-                # return redirect(reverse('Admin:index'))
+                # 用户名与密码匹配，登录成功
+                request.session['login_cameraman'] = {'name': name}
                 result = {'Success': True}
                 return JsonResponse(result)
         except Exception as e:
@@ -139,8 +140,8 @@ def login(request):
                 # 密码错误
                 return JsonResponse({'pwd_error': 1})
             else:
-                # 用户名密码匹配，重定向到管理员首页面
-                # return redirect(reverse('Admin:index'))
+                # 用户名与密码匹配，登录成功
+                request.session['login_user'] = {'name': name}
                 result = {'Success': True}
                 return JsonResponse(result)
         except Exception as e:
@@ -152,4 +153,12 @@ def login(request):
 # 管理员主界面函数
 def index(request):
     if request.method == 'GET':
-        return render(request, 'admin/index.html')
+        return render(request, 'Admin/index.html')
+# 管理员主界面函数
+def test(request):
+    if request.method == 'GET':
+        return render(request, 'test.html')
+# 管理员主界面函数
+def addBv(request):
+    if request.method == 'GET':
+        return render(request, 'admin/add_bv.html')

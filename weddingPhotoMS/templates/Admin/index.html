@@ -1,28 +1,75 @@
 {% extends 'base.html' %}
 {% block title %} 管理员首页 {% endblock %}
+{% block nav %}
+{% endblock %}
 {% block middle %}
-<div class="container">
-    <div class=" col-sm-3">
-        <div class="list-group">
-            <a href="#" class="list-group-item active">
-                功能列表
-            </a>
-            <a href="#" class="list-group-item">婚纱管理</a>
-            <a href="#" class="list-group-item">场地管理</a>
-            <a href="#" class="list-group-item">摄影师管理</a>
-            <a href="#" class="list-group-item">订单管理</a>
-            <a href="#" class="list-group-item">发布公告</a>
-        </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">公告</h3>
-            </div>
-            <div class="panel-body">
-                恭喜蒙娜丽莎婚纱摄影盛大开业！
-            </div>
-
-        </div>
+<!--<div style="margin:20px 0;"></div>-->
+<div class="easyui-layout" style="width:100%;height:600px">
+    <div data-options="region:'north'" style="height:50px">
+        <h3 class="text-center">后台管理系统</h3>
+    </div>
+    <div data-options="region:'south',split:true" style="height:50px;"></div>
+    <div data-options="region:'west',split:true" title="West" style="width:200px;">
+        <ul class="easyui-tree" data-options="animate:true">
+            <li>
+                <span>My Documents</span>
+                <ul>
+                    <li data-options="state:'closed'">
+                        <span>婚纱管理</span>
+                        <ul>
+                            <li>
+                                <a onclick=addTab('添加婚纱','http://127.0.0.1:8000/myAdmin/addBv/')>添加婚纱 </a>
+                            </li>
+                            <li>
+                                <a onclick=addTab('查看婚纱','http://127.0.0.1:8000/myAdmin/index/')>查看婚纱</a>
+                            </li>
+                            <li>
+                                <span>Company</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>Program Files</span>
+                        <ul>
+                            <li>Intel</li>
+                            <li>Java</li>
+                            <li>Microsoft Office</li>
+                            <li>Games</li>
+                        </ul>
+                    </li>
+                    <li>index.html</li>
+                    <li>about.html</li>
+                    <li>welcome.html</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div data-options="region:'center',iconCls:'icon-ok'" id="tt" class="easyui-tabs" >
     </div>
 </div>
-    {% endblock %}
+
+<!--<div style="margin-bottom:10px">-->
+<!--    <a href="#" class="easyui-linkbutton" onclick="addTab('google','http://www.google.com')">google</a>-->
+<!--    <a href="#" class="easyui-linkbutton" onclick="addTab('jquery','http://jquery.com/')">jquery</a>-->
+<!--    <a href="#" class="easyui-linkbutton" onclick="addTab('easyui','http://jeasyui.com/')">easyui</a>-->
+<!--</div>-->
+<script>
+     function addTab(title, url){
+        if ($('#tt').tabs('exists', title)){
+            $('#tt').tabs('select', title);
+        } else {
+            url_left = '{% url ' ;
+            url_right = ' % }';
+            url_real = url_left+"'"+url+"'"+url_right;
+            console.log(url_real);
+            var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:1000px;"></iframe>';
+            $('#tt').tabs('add',{
+                title:title,
+                content:content,
+                closable:true
+            });
+        }
+    }
+</script>
+{% endblock %}

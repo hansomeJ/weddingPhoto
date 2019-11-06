@@ -1,5 +1,6 @@
 from django.db import models
 
+from system.storage import ImageStorage
 
 # Create your models here.
 # 定义管理员表
@@ -18,7 +19,8 @@ class Bridal_Veil(models.Model):
     bv_name = models.CharField(max_length=200, verbose_name='婚纱名')
     bv_num_all = models.IntegerField(default=10, verbose_name='总数量')
     bv_num_now = models.IntegerField(default=10, verbose_name='可用数量')
-    bv_image = models.ImageField(upload_to='static/img/bridalVeil', default='default_bv.jpg', verbose_name='婚纱照片')
+    bv_image = models.ImageField(upload_to='static/img/bridalVeil/%Y%m', storage=ImageStorage(),
+                                 default='default_bv.jpg', verbose_name='婚纱照片')
     bv_detail = models.TextField(verbose_name='婚纱简介')
     bv_price = models.IntegerField(default=1000, verbose_name='婚纱价格')
     bv_photoNumMax = models.IntegerField(default=50, verbose_name='拍摄照片总张数')
@@ -42,7 +44,8 @@ class Bridal_Veils(models.Model):
 class Space(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='场地主键')
     s_name = models.CharField(max_length=200, verbose_name='场地名字')
-    s_image = models.ImageField(upload_to='static/img/space', default='default_s.jpg', verbose_name='场地图片')
+    s_image = models.ImageField(upload_to='static/img/space/%Y%m', storage=ImageStorage(), default='default_s.jpg',
+                                verbose_name='场地图片')
     s_detail = models.TextField(verbose_name='场地简介')
     s_sale_num = models.IntegerField(default=0, verbose_name='场地热度')
 

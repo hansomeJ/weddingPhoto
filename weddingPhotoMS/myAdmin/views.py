@@ -188,6 +188,8 @@ def addBv(request):
             return render(request, 'admin/add_bv.html', {'msg': '拍摄张数不能小于0！'})
         if int(photoMinNum) <= 0:
             return render(request, 'admin/add_bv.html', {'msg': '可选张数不能小于0！'})
+        if int(photoMinNum) > int(photoMaxNum):
+            return render(request, 'admin/updateBv.html', {'msg': '可选张数不能大于拍摄张数！'})
         if int(num) <= 0:
             return render(request, 'admin/add_bv.html', {'msg': '婚纱数量不能小于0！'})
         if len(name) == 0:
@@ -207,6 +209,82 @@ def addBv(request):
                 return render(request, 'admin/add_bv.html', {'msg': '添加婚纱失败！'})
         # return render(request, 'admin/add_bv.html')
 
+
 # 展示婚纱路由
-def showBv(request,id):
-    pass
+def showBv(request, id):
+    if request.method == 'GET' and id == '0':
+        allBv = bv.objects.all()
+        # print(dir(allBv[0]))
+        return render(request, 'admin/showAllBv.html', {'allBv': allBv})
+
+
+def updateBv(request, id):
+    targetBv = bv.objects.get(pk=id)
+    if request.method == 'GET':
+        return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '请修改下面信息！'})
+    else:
+        name = request.POST.get('name').strip()
+        numAll = request.POST.get('numAll').strip()
+        numNow = request.POST.get('numNow').strip()
+        price = request.POST.get('price').strip()
+        photoMaxNum = request.POST.get('photoMaxNum').strip()
+        photoMinNum = request.POST.get('photoMinNum').strip()
+        detail = request.POST.get('detail').strip()
+        photoImage = request.FILES.get('photoImage')
+        type_list = ['.jpg', '.png']
+
+        if int(price) <= 0:
+            return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '婚纱价格不能小于0！'})
+        if int(photoMaxNum) <= 0:
+            return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '拍摄张数不能小于0！'})
+        if int(photoMinNum) <= 0:
+            return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '可选张数不能小于0！'})
+        if int(photoMinNum) > int(photoMaxNum):
+            return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '可选张数不能大于拍摄张数！'})
+        if int(numAll) <= 0:
+            return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '婚纱数量不能小于0！'})
+        if int(numNow) < 0:
+            return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '婚纱数量不能小于0！'})
+        if int(numNow) > int(numAll):
+            return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '当前数量不能大于总数量'})
+        if len(name) == 0:
+            return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '婚纱名不能为空！'})
+        targetBv.bv_name = name
+        targetBv.bv_num_all = numAll
+        targetBv.bv_num_now = numNow
+        targetBv.bv_photoNumMax = photoMaxNum
+        targetBv.bv_photoNumMin = photoMinNum
+        targetBv.bv_detail = detail
+        if photoImage != '':
+            imgtype = os.path.splitext(photoImage.name)[1].lower()
+            if imgtype not in type_list:
+                return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '只支持png或者jpg格式的文件！'})
+            try:
+                # print(targetBv.bv_image,type(str(targetBv.bv_image)))
+                os.remove(str(targetBv.bv_image))
+                targetBv.bv_image = photoImage
+                targetBv.save()
+                return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '修改婚纱信息成功！'})
+            except Exception as e:
+                print(e)
+                return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '修改婚纱信息失败！'})
+        else:
+            try:
+                targetBv.save()
+                return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '修改婚纱信息成功！'})
+            except Exception as e:
+                print(e)
+                return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '修改婚纱信息失败！'})
+
+
+def deleteBv(request, id):
+    targetBv = bv.objects.get(pk=id)
+    allBv = bv.objects.all()
+    try:
+        targetBv.bridal_veils_set.clear()
+        os.remove(str(targetBv.bv_image))
+        targetBv.delete()
+        return render(request, 'admin/showAllBv.html', {'allBv': allBv})
+    except Exception as e:
+        print(e)
+        return render(request, 'admin/showAllBv.html', {'allBv': allBv})

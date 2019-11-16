@@ -35,7 +35,7 @@ class Bridal_Veils(models.Model):
     # 婚纱组与婚纱是多对多关系，一种婚纱可以属于多个婚纱组，一组婚纱里面也有多种婚纱
     # 婚纱组查询组内婚纱：BridalVeils.bvs_bv.all()
     # 婚纱查询属于那些组：BridalVeil.bvs_set.all()
-    bvs_bv = models.ManyToManyField(Bridal_Veil, verbose_name='婚纱组中的婚纱')
+    bvs_bv = models.ManyToManyField("Bridal_Veil", verbose_name='婚纱组中的婚纱')
     bvs_prices = models.IntegerField(verbose_name='婚纱组价格')
     bvs_sale_num = models.IntegerField(default=0, verbose_name='婚纱组热度')
 

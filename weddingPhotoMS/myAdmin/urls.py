@@ -19,4 +19,6 @@ urlpatterns = [
     # 修改婚纱路由
     url(r'updateBv/(\d+)/', views.updateBv, name='updateBv'),
     url(r'deleteBv/(\d+)/', views.deleteBv, name='deleteBv'),
+    # 添加婚纱组路由
+    url(r'addBvs/', views.addBvs, name='addBvs'),
 ]

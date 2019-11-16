@@ -17,6 +17,7 @@ from django.views.decorators.http import require_GET, require_POST, require_http
 
 from django.http import JsonResponse, HttpResponse
 
+from django.db.models import Q
 from weddingPhotoMS.utils import create_code, pwd_by_hashlib, pwd_by_hmac
 
 
@@ -288,3 +289,43 @@ def deleteBv(request, id):
     except Exception as e:
         print(e)
         return render(request, 'admin/showAllBv.html', {'allBv': allBv})
+
+
+# 添加婚纱组
+def addBvs(request):
+    allBv = bv.objects.all()
+    if request.method == 'GET':
+        return render(request, 'admin/add_bvs.html', {'allBv': allBv, 'msg': '请填写以下信息！'})
+    else:
+        name = request.POST.get('name').strip()
+        bv1 = request.POST.get('select1')
+        bv2 = request.POST.get('select2')
+        bv3 = request.POST.get('select3')
+        bv4 = request.POST.get('select4')
+        bv_set = {bv1, bv2, bv3, bv4}
+        try:
+            bvs.objects.get(bvs_name=name)
+            return render(request, 'admin/add_bvs.html', {'allBv': allBv, 'msg': '该组名已存在不能重复添加！'})
+        except:
+            if name == '':
+                return render(request, 'admin/add_bvs.html', {'allBv': allBv, 'msg': '组名不能为空！'})
+            if len(bv_set) != 4:
+                return render(request, 'admin/add_bvs.html', {'allBv': allBv, 'msg': '不能选择相同的婚纱！'})
+            else:
+                # bvOne = bv.objects.get(pk=bv1)
+                # bvTwo = bv.objects.get(pk=bv2)
+                # bvThree = bv.objects.get(pk=bv3)
+                # bvFour = bv.objects.get(pk=bv4)
+                try:
+                    bvSet = bv.objects.filter(Q(pk=bv1) | Q(pk=bv2) | Q(pk=bv3) | Q(pk=bv4))
+                    price = 0
+                    for i in bvSet:
+                        price += i.bv_price
+
+                    bvS = bvs.objects.create(bvs_name=name, bvs_prices=price)
+                    bvS.bvs_bv.add(*bvSet)
+                    bvS.save()
+                    return render(request, 'admin/add_bvs.html', {'allBv': allBv, 'msg': '添加成功！'})
+                except Exception as e:
+                    print(e)
+                    return render(request, 'admin/add_bvs.html', {'allBv': allBv, 'msg': '添加失败！'})

@@ -13,9 +13,10 @@
     <div data-options="region:'west',split:true" title="West" style="width:200px;">
         <ul class="easyui-tree" data-options="animate:true">
             <li>
-                <span>My Documents</span>
+                <span>功能列表</span>
                 <ul>
-                    <li data-options="state:'closed'">
+<!--                    <li data-options="state:'closed'">-->
+                    <li>
                         <span>婚纱管理</span>
                         <ul>
                             <li>
@@ -27,15 +28,20 @@
                             <li>
                                 <a onclick=addTab('添加婚纱组','http://127.0.0.1:8000/myAdmin/addBvs/')>添加婚纱组</a>
                             </li>
+                            <li>
+                                <a onclick=addTab('查看婚纱组','http://127.0.0.1:8000/myAdmin/showBvs/')>查看婚纱组</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
-                        <span>Program Files</span>
+                        <span>场地管理</span>
                         <ul>
-                            <li>Intel</li>
-                            <li>Java</li>
-                            <li>Microsoft Office</li>
-                            <li>Games</li>
+                            <li>
+                                <a onclick=addTab('添加场地','http://127.0.0.1:8000/myAdmin/addSpace/')>添加场地 </a>
+                            </li>
+                            <li>
+                                <a onclick=addTab('查看场地','http://127.0.0.1:8000/myAdmin/showBv/0/')>查看场地</a>
+                            </li>
                         </ul>
                     </li>
                     <li>index.html</li>
@@ -46,6 +52,7 @@
         </ul>
     </div>
     <div data-options="region:'center',iconCls:'icon-ok'" id="tt" class="easyui-tabs" >
+<!--        <h3 class="text-center text-primary">欢迎来到影楼后台管理系统！</h3>-->
     </div>
 </div>
 
@@ -67,7 +74,8 @@
             $('#tt').tabs('add',{
                 title:title,
                 content:content,
-                closable:true
+                closable:true,
+                refresh:true,
             });
         }
     }

@@ -10,6 +10,7 @@ from customer.models import Customer
 from myAdmin.models import Admin
 from myAdmin.models import Bridal_Veil as bv
 from myAdmin.models import Bridal_Veils as bvs
+from myAdmin.models import Space
 from cameraman.models import Cameraman
 from customer.models import Customer
 from django.views.decorators.csrf import csrf_exempt
@@ -177,7 +178,6 @@ def addBv(request):
         photoMinNum = request.POST.get('photoMinNum').strip()
         detail = request.POST.get('detail').strip()
         photoImage = request.FILES.get('photoImage')
-        print(photoImage, type(photoImage))
         type_list = ['.jpg', '.png']
         # 判断上传图片格式
         imgtype = os.path.splitext(photoImage.name)[1].lower()
@@ -329,3 +329,63 @@ def addBvs(request):
                 except Exception as e:
                     print(e)
                     return render(request, 'admin/add_bvs.html', {'allBv': allBv, 'msg': '添加失败！'})
+
+
+# 展示婚纱组
+def showBvs(request):
+    if request.method == 'GET':
+        allBvs = bvs.objects.all().order_by('-bvs_sale_num')
+        # print(allBvs)
+
+        for bv in allBvs:
+            s = bv.bvs_bv.all()
+            # print(s)
+
+        return render(request, 'admin/showAllBvs.html', {'allBvs': allBvs})
+
+
+# 删除婚纱组
+def deleteBvs(request, id):
+    targetBvs = bvs.objects.get(pk=id)
+    allBvs = bvs.objects.all()
+    try:
+        targetBvs.bvs_bv.clear()
+        targetBvs.delete()
+        return render(request, 'admin/showAllBvs.html', {'allBvs': allBvs})
+    except Exception as e:
+        print(e)
+        return render(request, 'admin/showAllBvs.html', {'allBvs': allBvs})
+
+
+def addSpace(request):
+    if request.method == 'GET':
+        return render(request, 'admin/addSpace.html', {'msg': '请填写以下信息！'})
+    else:
+        name = request.POST.get('name').strip()
+        detail = request.POST.get('detail').strip()
+        Image = request.FILES.get('Image')
+        try:
+            Space.objects.get(s_name=name)
+            return render(request, 'admin/addSpace.html', {'msg': '该场地名已存在不能重复添加！'})
+        except:
+            if detail == '':
+                return render(request, 'admin/addSpace.html', {'msg': '简介不能为空！'})
+            if name == '':
+                return render(request, 'admin/addSpace.html', {'msg': '场地名不能为空！'})
+            type_list = ['.jpg', '.png']
+            # 判断上传图片格式
+            imgtype = os.path.splitext(Image.name)[1].lower()
+            if imgtype not in type_list:
+                return render(request, 'admin/addSpace.html', {'msg': '只支持png或者jpg格式的文件！'})
+            try:
+                Space.objects.get(s_name=name)
+                return render(request, 'admin/addSpace.html', {'msg': '该场地名已存在！'})
+            except Exception as e:
+                print(e)
+                try:
+                    tarSpace = Space(s_name=name, s_image=Image, s_detail=detail)
+                    tarSpace.save()
+                    return render(request, 'admin/addSpace.html', {'msg': '添加场地成功！'})
+                except Exception as e:
+                    print(e)
+                    return render(request, 'admin/addSpace.html', {'msg': '添加场地失败！'})

@@ -27,9 +27,7 @@
                 <img src="/{{ bv.bv_image }}" alt="{{ bv.bv_name }}" title="{{ bv.bv_name }}" style="height: 150px">
                 <div class="caption">
                     <span>{{ bv.bv_detail | truncatechars:10 }}</span>
-                    <p class="text-center"><a href="{% url 'Admin:deleteBv' bv.id %}" class="btn btn-danger" role="button">删除</a> <a href="{% url 'Admin:updateBv' bv.id %}"
-                                                                                                       class="btn btn-primary"
-                                                                                                       role="button">修改</a>
+                    <p class="text-center"><a href="{% url 'Admin:deleteBv' bv.id %}" class="btn btn-danger" role="button">删除</a>
                     </p>
                 </div>
             </div>

@@ -18,7 +18,15 @@ urlpatterns = [
     url(r'showBv/(\d+)/', views.showBv, name='showBv'),
     # 修改婚纱路由
     url(r'updateBv/(\d+)/', views.updateBv, name='updateBv'),
+    # 删除婚纱路由
     url(r'deleteBv/(\d+)/', views.deleteBv, name='deleteBv'),
     # 添加婚纱组路由
     url(r'addBvs/', views.addBvs, name='addBvs'),
+    # 查看婚纱组路由
+    url(r'showBvs/', views.showBvs, name='showBvs'),
+    # 删除婚纱组路由
+    url(r'deleteBvs/(\d+)/', views.deleteBvs, name='deleteBvs'),
+    # 添加场地路由
+    url(r'addSpace/', views.addSpace, name='addSpace'),
+
 ]

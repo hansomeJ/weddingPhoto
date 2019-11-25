@@ -256,7 +256,7 @@ def updateBv(request, id):
         targetBv.bv_photoNumMax = photoMaxNum
         targetBv.bv_photoNumMin = photoMinNum
         targetBv.bv_detail = detail
-        if photoImage != '':
+        if photoImage != None:
             imgtype = os.path.splitext(photoImage.name)[1].lower()
             if imgtype not in type_list:
                 return render(request, 'admin/updateBv.html', {'bv': targetBv, 'msg': '只支持png或者jpg格式的文件！'})
@@ -283,6 +283,7 @@ def deleteBv(request, id):
     allBv = bv.objects.all()
     try:
         targetBv.bridal_veils_set.clear()
+        targetBv.order_set.clear()
         os.remove(str(targetBv.bv_image))
         targetBv.delete()
         return render(request, 'admin/showAllBv.html', {'allBv': allBv})
@@ -389,3 +390,64 @@ def addSpace(request):
                 except Exception as e:
                     print(e)
                     return render(request, 'admin/addSpace.html', {'msg': '添加场地失败！'})
+
+
+# 显示所有场地函数
+def showSpace(request):
+    if request.method == 'GET':
+        space = Space.objects.all()
+        return render(request, 'admin/showAllSpace.html', {'space': space})
+
+
+# 删除场地函数
+def deleteSpace(request, id):
+    space = Space.objects.all()
+    targetSpace = Space.objects.get(pk=id)
+    if request.method == 'GET':
+        try:
+            targetSpace.order_set.clear()
+            os.remove(str(targetSpace.s_image))
+            targetSpace.delete()
+            return render(request, 'admin/showAllSpace.html', {'space': space})
+        except Exception as e:
+            print(e)
+            return render(request, 'admin/showAllSpace.html', {'space': space})
+
+
+# 更新场地信息函数
+def updateSpace(request, id):
+    targetSpace = Space.objects.get(pk=id)
+    if request.method == 'GET':
+        return render(request, 'admin/updateSpace.html', {'msg': '请填写以下信息！', 's': targetSpace})
+    else:
+        name = request.POST.get('name').strip()
+        detail = request.POST.get('detail').strip()
+        Image = request.FILES.get('Image')
+        print(Image)
+        if detail == '':
+            return render(request, 'admin/updateSpace.html', {'msg': '简介不能为空！', 's': targetSpace})
+        if name == '':
+            return render(request, 'admin/updateSpace.html', {'msg': '场地名不能为空！', 's': targetSpace})
+        targetSpace.s_name = name
+        targetSpace.s_detail = detail
+        if Image != None:
+            type_list = ['.jpg', '.png']
+            # 判断上传图片格式
+            imgtype = os.path.splitext(Image.name)[1].lower()
+            if imgtype not in type_list:
+                return render(request, 'admin/updateSpace.html', {'msg': '只支持png或者jpg格式的文件！', 's': targetSpace})
+            try:
+                os.remove(str(targetSpace.s_image))
+                targetSpace.s_image = Image
+                targetSpace.save()
+                return render(request, 'admin/updateSpace.html', {'msg': '修改成功！', 's': targetSpace})
+            except Exception as e:
+                print(e)
+                return render(request, 'admin/updateSpace.html', {'msg': '修改场地失败！', 's': targetSpace})
+        else:
+            try:
+                targetSpace.save()
+                return render(request, 'admin/updateSpace.html', {'msg': '修改成功！', 's': targetSpace})
+            except Exception as e:
+                print(e)
+                return render(request, 'admin/updateSpace.html', {'msg': '修改场地失败！', 's': targetSpace})

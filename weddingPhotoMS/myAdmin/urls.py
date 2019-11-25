@@ -28,5 +28,11 @@ urlpatterns = [
     url(r'deleteBvs/(\d+)/', views.deleteBvs, name='deleteBvs'),
     # 添加场地路由
     url(r'addSpace/', views.addSpace, name='addSpace'),
+    # 查看场地路由
+    url(r'showSpace/', views.showSpace, name='showSpace'),
+    # 删除场地路由
+    url(r'deleteSpace/(\d+)/', views.deleteSpace, name='deleteSpace'),
+    # 更新场地路由
+    url(r'updateSpace/(\d+)/', views.updateSpace, name='updateSpace'),
 
 ]

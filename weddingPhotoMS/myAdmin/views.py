@@ -156,8 +156,10 @@ def login(request):
 
 # 管理员主界面函数
 def index(request):
+    space = Space.objects.all().order_by('-s_sale_num')[:3]
+    print(space)
     if request.method == 'GET':
-        return render(request, 'Admin/index.html')
+        return render(request, 'Admin/index.html',{'space':space})
 
 
 # 管理员主界面函数

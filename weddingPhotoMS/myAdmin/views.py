@@ -159,7 +159,7 @@ def index(request):
     space = Space.objects.all().order_by('-s_sale_num')[:3]
     print(space)
     if request.method == 'GET':
-        return render(request, 'Admin/index.html',{'space':space})
+        return render(request, 'Admin/index.html', {'space': space})
 
 
 # 管理员主界面函数
@@ -453,3 +453,9 @@ def updateSpace(request, id):
             except Exception as e:
                 print(e)
                 return render(request, 'admin/updateSpace.html', {'msg': '修改场地失败！', 's': targetSpace})
+
+
+# 发布公告
+def notice(request):
+    if request.method == 'GET':
+        return render(request, 'admin/notice.html')

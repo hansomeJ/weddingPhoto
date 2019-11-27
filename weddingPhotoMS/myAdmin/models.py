@@ -1,7 +1,7 @@
 from django.db import models
 
 from system.storage import ImageStorage
-
+from DjangoUeditor.models import UEditorField
 # Create your models here.
 # 定义管理员表
 class Admin(models.Model):
@@ -54,5 +54,5 @@ class Space(models.Model):
 class Notice(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='订单主键')
     notice_title = models.CharField(max_length=200, verbose_name='公告主键')
-    notice_content = models.TextField(verbose_name='公告内容')
+    notice_content = UEditorField(verbose_name='公告内容')
     notice_time = models.DateTimeField(auto_now_add=True, verbose_name='公告发布时间')

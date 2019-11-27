@@ -47,7 +47,7 @@
     </script>
 
 </head>
-<body id='background' style="background-image: url('/static/img/background/background.gif');background-size: cover">
+<body id='background' {% block img %} style="background-image: url('/static/img/background/background.gif');background-size: cover" {% endblock %}>
 {% block nav %}
 <nav class="navbar  navbar-static-top">
     <div class="container-fluid">

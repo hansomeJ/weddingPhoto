@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^cameraman/', include('cameraman.urls', namespace='cameraman')),
     url(r'^customer/', include('customer.urls', namespace='customer')),
     url(r'', views.index),
+    url(r'^ueditor/', include('DjangoUeditor.urls'))
 ]

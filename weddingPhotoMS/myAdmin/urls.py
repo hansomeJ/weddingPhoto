@@ -34,5 +34,7 @@ urlpatterns = [
     url(r'deleteSpace/(\d+)/', views.deleteSpace, name='deleteSpace'),
     # 更新场地路由
     url(r'updateSpace/(\d+)/', views.updateSpace, name='updateSpace'),
+    # 更新场地路由
+    url(r'notice/', views.notice, name='notice'),
 
 ]

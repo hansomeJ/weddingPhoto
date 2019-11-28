@@ -60,14 +60,14 @@
                 <li role="presentation"><a href="#">场地</a></li>
                 <li role="presentation"><a href="#">摄影师</a></li>
             </ul>
-            <span>当前用户：{{ request.session.login_user.name }}</span>
+
             <ul class="nav nav-pills navbar-nav  navbar-right">
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">设置 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
+                        <li><a href="#">当前用户: {{ request.session.login_user.name }}</a></li>
                         <li><a href="#">Another action</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li role="separator" class="divider"></li>
@@ -78,15 +78,13 @@
 
             {% endif %}
             {% if request.session.login_admin %}
+
             <ul class="  nav navbar-nav nav-pills ">
                 <li role="presentation" class="active"><a href="#">首页</a></li>
                 <li role="presentation"><a href="#">待定1</a></li>
                 <li role="presentation"><a href="#">待定2</a></li>
                 <li role="presentation"><a href="#">待定3</a></li>
             </ul>
-
-            <!--            <span>当前用户：{{ request.session.login_admin.name }}</span>-->
-
             <ul class="nav nav-pills navbar-right">
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
@@ -102,8 +100,8 @@
                 </li>
             </ul>
             <ul class="nav nav-pills navbar-right text-center">
-                <li role="presentation" ><a class=" label label-primary">当前用户:</a></li>
-                <li role="presentation" ><a class="label label-info">{{ request.session.login_admin.name }}</a></li>
+                <li><a>当前用户:</a></li>
+                <li><a class="label label-info">{{ request.session.login_admin.name }}</a></li>
             </ul>
             {% endif %}
             {% if request.session.login_cameraman %}

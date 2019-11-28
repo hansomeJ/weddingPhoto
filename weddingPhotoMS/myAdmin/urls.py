@@ -34,7 +34,11 @@ urlpatterns = [
     url(r'deleteSpace/(\d+)/', views.deleteSpace, name='deleteSpace'),
     # 更新场地路由
     url(r'updateSpace/(\d+)/', views.updateSpace, name='updateSpace'),
-    # 更新场地路由
+    # 发布公告路由
     url(r'notice/', views.notice, name='notice'),
+    # 查看公告路由
+    url(r'noticeShow/', views.noticeShow, name='noticeShow'),
+    # 退出登录
+    url(r'logout/', views.logout, name='logout'),
 
 ]

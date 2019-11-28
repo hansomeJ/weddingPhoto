@@ -5,14 +5,14 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import reverse
 
-from cameraman.models import Cameraman
-from customer.models import Customer
 from myAdmin.models import Admin
 from myAdmin.models import Bridal_Veil as bv
 from myAdmin.models import Bridal_Veils as bvs
 from myAdmin.models import Space
+from myAdmin.models import Notice
 from cameraman.models import Cameraman
 from customer.models import Customer
+
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST, require_http_methods, require_safe
 
@@ -459,3 +459,28 @@ def updateSpace(request, id):
 def notice(request):
     if request.method == 'GET':
         return render(request, 'admin/notice.html')
+    else:
+        title = request.POST.get('title').strip()
+        content = request.POST.get('content').strip()
+        if title == '':
+            return render(request, 'admin/notice.html', {"msg": '公告标题不能为空！'})
+        if content == '':
+            return render(request, 'admin/notice.html', {"msg": '公告内容不能为空！'})
+        notice = Notice(notice_title=title, notice_content=content)
+        try:
+            notice.save()
+            return render(request, 'admin/notice.html', {"msg": '发布公告成功！'})
+        except Exception as e:
+            print(e)
+            return render(request, 'admin/notice.html', {"msg": '发布公告失败！'})
+
+
+# 查看公告
+def noticeShow(request):
+    notice = Notice.objects.all().order_by('-notice_time')[0]
+    return render(request, 'admin/showNotice.html', {"n": notice})
+
+# 退出登录
+def logout(request):
+    request.session.clear()
+    return redirect(r'http://127.0.0.1:8000')

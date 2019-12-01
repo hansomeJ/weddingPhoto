@@ -515,6 +515,16 @@ def cameraMan(request, type):
 
 
 def updateCameraMan(request, id):
+    cameraman = Cameraman.objects.get(pk=id)
+    all_ca = Cameraman.objects.all()
     if request.method == 'GET':
-        cameraman = Cameraman.objects.get(pk=id)
         return render(request, 'admin/updateCameraman.html', {'ca': cameraman})
+    else:
+        lv = request.POST.get('new_lv')
+        try:
+            cameraman.ca_lv = lv
+            cameraman.save()
+            return render(request, 'admin/updateCameraman.html', {'ca': cameraman, 'msg': '修改成功！'})
+        except Exception as e:
+            print(e)
+            return render(request, 'admin/updateCameraman.html', {'ca': cameraman, 'msg': '修改失败！'})

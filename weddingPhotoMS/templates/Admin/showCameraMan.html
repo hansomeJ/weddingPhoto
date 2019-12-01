@@ -42,8 +42,12 @@
                     </li>
                 </ul>
                 <ul class="nav nav-pills navbar-nav navbar-center">
+                    <li>{{msg}}</li>
+                </ul>
+                <ul class="nav nav-pills navbar-nav navbar-center">
+
                     <li class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
                                 data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="true">
                             按性别筛选
@@ -86,28 +90,14 @@
                 </td>
             </tr>
             {% empty %}
-            <td>还没有该摄影师信息</td>
+            <tr>
+                <td>还没有该摄影师信息</td>
+            </tr>
+
             {% endfor %}
 
         </table>
     </div>
-    <!--    <div class="row">-->
-    <!--        {% for bv in allBv %}-->
-    <!--        <div class="col-sm-6 col-md-4">-->
-    <!--            <div class="thumbnail">-->
-    <!--                <img src="/{{ bv.bv_image }}" alt="{{ bv.bv_name }}" title="{{ bv.bv_name }}" style="height: 150px">-->
-    <!--                <div class="caption">-->
-    <!--                    <span>{{ bv.bv_detail | truncatechars:10 }}</span>-->
-    <!--                    <p class="text-center"><a href="{% url 'Admin:deleteBv' bv.id %}" class="btn btn-danger" role="button">删除</a> <a href="{% url 'Admin:updateBv' bv.id %}"-->
-    <!--                                                                                                       class="btn btn-primary"-->
-    <!--                                                                                                       role="button">修改</a>-->
-    <!--                    </p>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        {% endfor %}-->
-
-    <!--    </div>-->
 </div>
 </body>
 </html>

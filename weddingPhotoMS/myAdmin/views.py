@@ -117,6 +117,7 @@ def login(request):
                 result = {'Success': True}
                 # 把管理员信息存入缓存
                 request.session['login_admin'] = {'name': name}
+                request.session.set_expiry(0)
                 return JsonResponse(result)
         except Exception as e:
             # 该用户不存在
@@ -131,6 +132,7 @@ def login(request):
             else:
                 # 用户名与密码匹配，登录成功
                 request.session['login_cameraman'] = {'name': name}
+                request.session.set_expiry(0)
                 result = {'Success': True}
                 return JsonResponse(result)
         except Exception as e:
@@ -146,6 +148,7 @@ def login(request):
             else:
                 # 用户名与密码匹配，登录成功
                 request.session['login_user'] = {'name': name}
+                request.session.set_expiry(0)
                 result = {'Success': True}
                 return JsonResponse(result)
         except Exception as e:

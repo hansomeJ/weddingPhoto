@@ -40,5 +40,9 @@ urlpatterns = [
     url(r'noticeShow/', views.noticeShow, name='noticeShow'),
     # 退出登录
     url(r'logout/', views.logout, name='logout'),
+    # 摄影师管理
+    url(r'cameraMan/(\d+)/', views.cameraMan, name='cameraMan'),
+    # 修改摄影师等级
+    url(r'updateCameraMan/(\d+)/', views.updateCameraMan, name='updateCameraMan'),
 
 ]

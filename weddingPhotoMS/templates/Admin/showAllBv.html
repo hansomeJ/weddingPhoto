@@ -31,10 +31,12 @@
                 <div class="caption">
                     <span>{{ bv.bv_detail | truncatechars:10 }}</span>
                     <p class="text-center">
+                        {% if request.session.login_admin %}
                         <a href="{% url 'Admin:deleteBv' bv.id %}" class="btn btn-danger"
                            role="button">删除</a>
                         <a href="{% url 'Admin:updateBv' bv.id %}" class="btn btn-primary"
                            role="button">修改</a>
+                        {% endif %}
                     </p>
                 </div>
             </div>

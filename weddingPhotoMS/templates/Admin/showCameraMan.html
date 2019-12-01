@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'js/lib/bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common1.css' %}">
+    <script type="text/javascript" src="{% static 'js/lib/jQuery3.2.1/jquery-3.2.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <!--    <meta charset="UTF-8">-->
+    <!--    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>-->
+</head>
+<body>
+<div class="container-fluid" style="height: 100px">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+
+        <div class="panel-heading container-fluid" style="height: 50px">
+            <div class="collapse navbar-collapse nav">
+                <ul class="nav nav-pills navbar-nav  navbar-right">
+                    <li class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="true">
+                            按等级筛选
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{% url 'Admin:cameraMan' 1 %}">初级</a></li>
+                            <li><a href="{% url 'Admin:cameraMan' 2 %}">中级</a></li>
+                            <li><a href="{% url 'Admin:cameraMan' 3 %}">高级</a></li>
+                            <li><a href="{% url 'Admin:cameraMan' 0 %}">全部</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav nav-pills navbar-nav navbar-center">
+                    <li class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="true">
+                            按性别筛选
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{% url 'Admin:cameraMan' 4 %}">男摄影师</a></li>
+                            <li><a href="{% url 'Admin:cameraMan' 5 %}">女摄影师</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Table -->
+        <table class="table">
+            <tr>
+                <td class="danger">序号</td>
+                <td class="active">图片</td>
+                <td class="success">名字</td>
+                <td class="warning">性别</td>
+                <td class="danger">简介</td>
+                <td class="active">等级</td>
+                <td class="success">操作</td>
+            </tr>
+            {% for ca in cameraman %}
+            <tr>
+                <td class="active">{{ forloop.counter }}</td>
+                <td class="success">
+                    <img src="/{{ ca.ca_image }}" alt="..." style="height: 40px">
+                </td>
+                <td class="warning">{{ ca.ca_name }}</td>
+                <td class="danger">{{ ca.ca_gender }}</td>
+                <td class="active">{{ ca.ca_detail | truncatechars:10 }}</td>
+                <td class="danger">{{ ca.ca_lv }}</td>
+                <td class="success">
+                    <a href="{% url 'Admin:updateCameraMan' ca.id %}" class="btn btn-primary"
+                       role="button">修改</a>
+                </td>
+            </tr>
+            {% empty %}
+            <td>还没有该摄影师信息</td>
+            {% endfor %}
+
+        </table>
+    </div>
+    <!--    <div class="row">-->
+    <!--        {% for bv in allBv %}-->
+    <!--        <div class="col-sm-6 col-md-4">-->
+    <!--            <div class="thumbnail">-->
+    <!--                <img src="/{{ bv.bv_image }}" alt="{{ bv.bv_name }}" title="{{ bv.bv_name }}" style="height: 150px">-->
+    <!--                <div class="caption">-->
+    <!--                    <span>{{ bv.bv_detail | truncatechars:10 }}</span>-->
+    <!--                    <p class="text-center"><a href="{% url 'Admin:deleteBv' bv.id %}" class="btn btn-danger" role="button">删除</a> <a href="{% url 'Admin:updateBv' bv.id %}"-->
+    <!--                                                                                                       class="btn btn-primary"-->
+    <!--                                                                                                       role="button">修改</a>-->
+    <!--                    </p>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        {% endfor %}-->
+
+    <!--    </div>-->
+</div>
+</body>
+</html>

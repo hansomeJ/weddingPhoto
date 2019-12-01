@@ -24,10 +24,11 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
 
-        <div class="panel-heading">
+        <div class="panel-heading" style="height: 50px">
+            {% if request.session.login_admin %}
             操作：
             <a class="btn btn-danger" href="{% url 'Admin:deleteBvs' bvs.id %}">删除</a>
-
+            {% endif %}
             <span class="col-sm-3">组名：{{ bvs.bvs_name }}</span>
             <span class="col-sm-3">价格：{{ bvs.bvs_prices }}</span>
             <span class="col-sm-3">热度：{{ bvs.bvs_sale_num }}</span>

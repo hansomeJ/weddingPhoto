@@ -30,10 +30,12 @@
                 <div class="caption">
                     <span>{{ s.s_detail | truncatechars:10 }}</span>
                     <p class="text-center">
+                        {% if request.session_login_admin %}
                         <a href="{% url 'Admin:deleteSpace' s.id %}" class="btn btn-danger"
                            role="button">删除</a>
                         <a href="{% url 'Admin:updateSpace' s.id %}" class="btn btn-primary"
                            role="button">修改</a>
+                        {% endif %}
                     </p>
                 </div>
             </div>

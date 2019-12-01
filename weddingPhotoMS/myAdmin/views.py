@@ -483,7 +483,38 @@ def noticeShow(request):
     notice = Notice.objects.all().order_by('-notice_time')[0]
     return render(request, 'admin/showNotice.html', {"n": notice})
 
+
 # 退出登录
 def logout(request):
     request.session.clear()
     return redirect(r'http://127.0.0.1:8000')
+
+
+def cameraMan(request, type):
+    type = int(type)
+    if request.method == 'GET':
+        if type == 0:
+            print(type)
+            cameraman = Cameraman.objects.all()
+            return render(request, 'admin/showCameraMan.html', {'cameraman': cameraman})
+        elif type == 1:
+            cameraman = Cameraman.objects.filter(ca_lv='初级')
+            return render(request, 'admin/showCameraMan.html', {'cameraman': cameraman})
+        elif type == 2:
+            cameraman = Cameraman.objects.filter(ca_lv='中级')
+            return render(request, 'admin/showCameraMan.html', {'cameraman': cameraman})
+        elif type == 3:
+            cameraman = Cameraman.objects.filter(ca_lv='高级')
+            return render(request, 'admin/showCameraMan.html', {'cameraman': cameraman})
+        elif type == 4:
+            cameraman = Cameraman.objects.filter(ca_gender='男')
+            return render(request, 'admin/showCameraMan.html', {'cameraman': cameraman})
+        elif type == 5:
+            cameraman = Cameraman.objects.filter(ca_gender='女')
+            return render(request, 'admin/showCameraMan.html', {'cameraman': cameraman})
+
+
+def updateCameraMan(request, id):
+    if request.method == 'GET':
+        cameraman = Cameraman.objects.get(pk=id)
+        return render(request, 'admin/updateCameraman.html', {'ca': cameraman})

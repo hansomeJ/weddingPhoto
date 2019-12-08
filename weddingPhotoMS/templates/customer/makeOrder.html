@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'js/lib/bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common1.css' %}">
+    <script type="text/javascript" src="{% static 'js/lib/jQuery3.2.1/jquery-3.2.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <!--    <meta charset="UTF-8">-->
+    <!--    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>-->
+</head>
+<body>
+<div class="container-fluid" style="height: 100px">
+
+
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" id="Msg"><a href="#baseMsg" role="tab"
+                                                               data-toggle="tab">基本信息</a></li>
+            <li role="presentation" class="hidden" id="s_bv"><a href="#bv" role="tab"
+                                                                data-toggle="tab">选择婚纱</a></li>
+            <li role="presentation" class="hidden" id="s_bvs"><a href="#bvs" role="tab"
+                                                                 data-toggle="tab">选择婚纱组</a></li>
+            <li role="presentation" class="hidden" id="s_space"><a href="#space" role="tab"
+                                                                   data-toggle="tab">选择场地</a></li>
+            <li role="presentation" class="hidden" id="s_camera"><a href="#camera" role="tab"
+                                                                    data-toggle="tab">选择摄影师</a></li>
+        </ul>
+        <div class="text text-center text-danger">
+            <h3 style="">{{ msg }}</h3>
+        </div>
+        <div class="col-sm-2"></div>
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="tab-content">
+                <div class="col-sm-6 tab-pane active" role="tabpanel" id="baseMsg">
+                    <div class="text-primary">
+                        <div class="form-group">
+                            <label for="nameOne" class="col-sm-3 control-label">男方姓名</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="nameOne" id="nameOne"
+                                       placeholder="请填写男方姓名..."
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nameTwo" class="col-sm-3 control-label">女方姓名</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="nameTwo" id="nameTwo"
+                                       placeholder="请填写女方姓名..."
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNum" class="col-sm-3 control-label">联系电话</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" name="phoneNum" id="phoneNum"
+                                       placeholder="联系电话"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="select" class="col-sm-3 control-label">婚纱选项</label>
+                            <div class="col-sm-9">
+                                <label class="radio-inline">
+                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="bv" checked>
+                                    选择婚纱
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="bvs"> 选择婚纱组
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-sm-6"></div>
+                            <input class="btn btn-primary" href="#bv" id="select_bv" value="确认">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 tab-pane" role="tabpanel" id="bv">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="select" class="col-sm-3 control-label">婚纱1</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="select1" id="select">
+                                    <option>点击此处选择婚纱</option>
+                                    {% for bv in allBv %}
+                                    <option class="select" value="{{ bv.id }}">{{ bv.bv_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="select2" class="col-sm-3 control-label">婚纱2</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="select2" id="select2">
+                                    <option>点击此处选择婚纱</option>
+                                    {% for bv in allBv %}
+                                    <option class="select" value="{{ bv.id }}">{{ bv.bv_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="select3" class="col-sm-3 control-label">婚纱3</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="select3" id="select3">
+                                    <option>点击此处选择婚纱</option>
+                                    {% for bv in allBv %}
+                                    <option class="select" value="{{ bv.id }}">{{ bv.bv_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="select4" class="col-sm-3 control-label">婚纱4</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="select4" id="select4">
+                                    <option>点击此处选择婚纱</option>
+                                    {% for bv in allBv %}
+                                    <option class="select" value="{{ bv.id }}">{{ bv.bv_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-sm-6"></div>
+                            <input class="btn btn-primary" id="select_space" value="确认">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 tab-pane" role="tabpanel" id="bvs">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="select" class="col-sm-3 control-label">选择婚纱组</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="select1" id="select_bvs">
+                                    <option>点击此处选择婚纱组</option>
+                                    {% for bvs in allBvs %}
+                                    <option class="select" value="{{ bvs.id }}">{{ bvs.bvs_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-sm-6"></div>
+                            <input class="btn btn-primary" id="select_space1" value="确认">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 tab-pane" role="tabpanel" id="space">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="select" class="col-sm-3 control-label">选择场地</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="select1" id="">
+                                    <option>点击此处选择场地</option>
+                                    {% for s in space %}
+                                    <option class="select" value="{{ bvs.id }}">{{ s.s_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-sm-6"></div>
+                            <input class="btn btn-primary" id="select_camera" value="确定">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#inlineRadio1").on('click', function () {
+            let $select = $('input:radio[name="inlineRadioOptions"]:checked').val();
+            let $button = $("#select_bv");
+            console.log($select);
+            if ($select === 'bv') {
+                $button.attr("href", "#bv")
+
+            } else {
+                $button.attr("href", "#bvs")
+            }
+        });
+        $("#inlineRadio2").on('click', function () {
+            let $select = $('input:radio[name="inlineRadioOptions"]:checked').val();
+            let $button = $("#select_bv");
+            console.log($select);
+            if ($select === 'bv') {
+                $button.attr("href", "#bv")
+
+            } else {
+                $button.attr("href", "#bvs")
+            }
+        })
+
+
+    });
+    $(function () {
+        $("#select_bv").on('click', function () {
+            let $target = $("#select_bv").attr("href");
+            let $s_bv = $("#s_bv");
+            let $s_bvs = $("#s_bvs");
+            if ($target === '#bv') {
+
+                $s_bv.removeClass('hidden');
+                $s_bvs.addClass('hidden');
+            } else {
+                $s_bvs.removeClass('hidden');
+                $s_bv.addClass('hidden');
+            }
+
+        })
+    });
+    $(function () {
+        $("#select_space").on('click', function () {
+            let $s_space = $("#s_space");
+            $s_space.removeClass('hidden');
+        })
+    });
+    $(function () {
+        $("#select_space1").on('click', function () {
+            let $s_space = $("#s_space");
+            $s_space.removeClass('hidden');
+        })
+    });
+     $(function () {
+        $("#select_camera").on('click', function () {
+            let $s_camera = $("#s_camera");
+            $s_camera.removeClass('hidden');
+        })
+    })
+</script>
+</body>
+</html>

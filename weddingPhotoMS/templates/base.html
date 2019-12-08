@@ -11,13 +11,13 @@
     <script type="text/javascript" src="{% static 'js/lib/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
     {% block header %}
     <meta charset="UTF-8">
-	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">
-	<script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">
+    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>
     {% endblock %}
     <script>
         function change_code() {
@@ -47,7 +47,8 @@
     </script>
 
 </head>
-<body id='background' {% block img %} style="background-image: url('/static/img/background/background.gif');background-size: cover" {% endblock %}>
+<body id='background' {% block img %}
+      style="background-image: url('/static/img/background/background.gif');background-size: cover" {% endblock %}>
 {% block nav %}
 <nav class="navbar  navbar-static-top">
     <div class="container-fluid">
@@ -147,9 +148,10 @@
             <!-- Nav tabs -->
             <div>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active" id="login_tab"><a href="#login" aria-controls="home"
-                                                                             role="tab"
-                                                                             data-toggle="tab">登录</a>
+                    <li role="presentation" class="active" id="login_tab">
+                        <a href="#login" aria-controls="home"
+                           role="tab"
+                           data-toggle="tab">登录</a>
                     </li>
                     <li role="presentation" id="regist_tab"><a href="#regist" aria-controls="profile" role="tab"
                                                                data-toggle="tab">注册</a>

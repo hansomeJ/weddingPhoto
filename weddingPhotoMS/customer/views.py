@@ -33,4 +33,8 @@ def addOrder(request):
         allbv = bv.objects.all()
         allbvs = bvs.objects.all()
         space = Space.objects.all()
-        return render(request, 'customer/makeOrder.html', {'allBv': allbv,'allBvs': allbvs,'space': space})
+        cameraman = Cameraman.objects.all()
+        return render(request, 'customer/makeOrder.html',
+                      {'allBv': allbv, 'allBvs': allbvs, 'space': space, 'cameraman': cameraman})
+    else:
+        return render(request, 'customer/index.html')

@@ -43,6 +43,7 @@
         <div class="col-sm-2"></div>
         <form class="form-horizontal" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+
             <div class="tab-content">
                 <div class="col-sm-6 tab-pane active" role="tabpanel" id="baseMsg">
                     <div class="text-primary">
@@ -104,7 +105,6 @@
                             <label for="select" class="col-sm-3 control-label">婚纱1</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="select1" id="select">
-                                    <option>点击此处选择婚纱</option>
                                     {% for bv in allBv %}
                                     <option class="select" value="{{ bv.id }}">{{ bv.bv_name }}</option>
                                     {% endfor %}
@@ -115,7 +115,6 @@
                             <label for="select2" class="col-sm-3 control-label">婚纱2</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="select2" id="select2">
-                                    <option>点击此处选择婚纱</option>
                                     {% for bv in allBv %}
                                     <option class="select" value="{{ bv.id }}">{{ bv.bv_name }}</option>
                                     {% endfor %}
@@ -126,7 +125,6 @@
                             <label for="select3" class="col-sm-3 control-label">婚纱3</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="select3" id="select3">
-                                    <option>点击此处选择婚纱</option>
                                     {% for bv in allBv %}
                                     <option class="select" value="{{ bv.id }}">{{ bv.bv_name }}</option>
                                     {% endfor %}
@@ -137,7 +135,6 @@
                             <label for="select4" class="col-sm-3 control-label">婚纱4</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="select4" id="select4">
-                                    <option>点击此处选择婚纱</option>
                                     {% for bv in allBv %}
                                     <option class="select" value="{{ bv.id }}">{{ bv.bv_name }}</option>
                                     {% endfor %}
@@ -175,7 +172,7 @@
                             <div class="col-sm-9">
                                 <select class="form-control" name="space" id="">
                                     {% for s in space %}
-                                    <option class="select" value="{{ bvs.id }}">{{ s.s_name }}</option>
+                                    <option class="select" value="{{ s.id }}">{{ s.s_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -194,14 +191,14 @@
                                 <select class="form-control" name="cameraman" id="cameraman1">
 
                                     {% for c in cameraman %}
-                                    <option class="select" value="{{ bvs.id }}">{{ c.ca_name }}</option>
+                                    <option class="select" value="{{ c.id }}">{{ c.ca_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-sm-6"></div>
-                            <button class="btn btn-primary"  value="确定">提交</button>
+                            <button class="btn btn-primary" value="确定">提交</button>
                         </div>
                     </div>
                 </div>
@@ -270,7 +267,7 @@
     $(function () {
         $("#select_space").on('click', function () {
             let $s_space = $("#s_space");
-            let $select = $("#select").val();
+            let $select = $("#select4").val();
             let $select1 = $("#select1").val();
             let $select2 = $("#select2").val();
             let $select3 = $("#select3").val();
@@ -282,7 +279,7 @@
                 alert('请选择4种不同的婚纱')
             } else if ($select2 === $select1 || $select2 === $select || $select2 === $select3) {
                 alert('请选择4种不同的婚纱')
-            } else if ($select3 === $select1 || $select3 === $select || $select3 === $select) {
+            } else if ($select3 === $select1 || $select3 === $select2 || $select3 === $select) {
                 alert('请选择4种不同的婚纱')
             } else {
                 $s_space.removeClass('hidden');

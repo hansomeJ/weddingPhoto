@@ -107,3 +107,11 @@ def addOrder(request):
                 return render(request, 'customer/makeOrder.html',
                               {'msg': '添加订单失败！', 'allBv': allbv, 'allBvs': allbvs, 'space': space,
                                'cameraman': cameraman})
+
+
+def showOrder(request, id, type):
+    if type == 'all':
+        all = Order.objects.all()
+        for i in all:
+            print(i.order_cameraman)
+        return render(request, 'customer/showOrders.html', {'order': all})

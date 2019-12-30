@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'js/lib/bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common1.css' %}">
+    <script type="text/javascript" src="{% static 'js/lib/jQuery3.2.1/jquery-3.2.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <!--    <meta charset="UTF-8">-->
+    <!--    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>-->
+</head>
+<body>
+<div class="container-fluid" style="height: 100px">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+
+        <div class="panel-heading container-fluid" style="height: 50px">
+            <div class="collapse navbar-collapse nav">
+                <ul class="nav nav-pills navbar-nav  navbar-right">
+                    <li class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="true">
+                            按状态筛选
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{% url 'customer:showOrder' id=0 type='ptoto' %}">待拍摄</a></li>
+                            <li><a href="{% url 'customer:showOrder' id=0 type='get' %}">待取片</a></li>
+                            <li><a href="{% url 'customer:showOrder' id=0 type='comment' %}">待评价</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav nav-pills navbar-nav navbar-center">
+                    <li>{{msg}}</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Table -->
+        <table class="table">
+            <tr>
+                <td class="danger">序号</td>
+                <td class="active">男方姓名</td>
+                <td class="success">女方姓名</td>
+                <td class="warning">摄影师</td>
+                <td class="danger">价格</td>
+                <td class="active">状态</td>
+            </tr>
+            {% for o in order %}
+            <tr>
+                <td class="active">{{ forloop.counter }}</td>
+                <td class="warning">{{ o.order_nameOne }}</td>
+                <td class="danger">{{ o.order_nameTwo }}</td>
+                <td class="active">{{ o.order_cameraman.ca_name }}</td>
+                <td class="danger">{{ o.order_moneyNum }}</td>
+                <td class="success">{{ o.order_status }}</td>
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td>还没有该订单信息</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+</body>
+</html>

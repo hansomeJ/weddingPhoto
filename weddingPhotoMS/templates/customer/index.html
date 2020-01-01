@@ -134,7 +134,9 @@
 <!--    <a href="#" class="easyui-linkbutton" onclick="addTab('jquery','http://jquery.com/')">jquery</a>-->
 <!--    <a href="#" class="easyui-linkbutton" onclick="addTab('easyui','http://jeasyui.com/')">easyui</a>-->
 <!--</div>-->
+{% block Tab %}
 <script>
+
     function addTab(title, url) {
         if ($('#tt').tabs('exists', title)) {
             $('#tt').tabs('select', title);
@@ -153,4 +155,5 @@
         }
     }
 </script>
+{% endblock %}
 {% endblock %}

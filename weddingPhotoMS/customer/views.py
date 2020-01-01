@@ -112,6 +112,16 @@ def addOrder(request):
 def showOrder(request, id, type):
     if type == 'all':
         all = Order.objects.all()
-        for i in all:
-            print(i.order_cameraman)
         return render(request, 'customer/showOrders.html', {'order': all})
+    elif type == 'ptoto':
+        all = Order.objects.filter(order_status='待拍摄')
+        return render(request, 'customer/showOrders.html', {'order': all})
+    elif type == 'get':
+        all = Order.objects.filter(order_status='待取片')
+        return render(request, 'customer/showOrders.html', {'order': all})
+    elif type == 'comment':
+        all = Order.objects.filter(order_status='待评价')
+        return render(request, 'customer/showOrders.html', {'order': all})
+    else:
+        order = Order.objects.get(pk=id)
+        return render(request, 'customer/showOrder.html', {'order': order})

@@ -34,6 +34,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{% url 'customer:showOrder' id=0 type='all' %}">全部订单</a></li>
                             <li><a href="{% url 'customer:showOrder' id=0 type='ptoto' %}">待拍摄</a></li>
                             <li><a href="{% url 'customer:showOrder' id=0 type='get' %}">待取片</a></li>
                             <li><a href="{% url 'customer:showOrder' id=0 type='comment' %}">待评价</a></li>
@@ -56,6 +57,7 @@
                 <td class="warning">摄影师</td>
                 <td class="danger">价格</td>
                 <td class="active">状态</td>
+                <td class="success">操作</td>
             </tr>
             {% for o in order %}
             <tr>
@@ -65,6 +67,9 @@
                 <td class="active">{{ o.order_cameraman.ca_name }}</td>
                 <td class="danger">{{ o.order_moneyNum }}</td>
                 <td class="success">{{ o.order_status }}</td>
+                <td class="warning">
+                    <a href="{% url 'customer:showOrder' id=o.id type='detile' %}" class="btn btn-primary text-center">查看</a>
+                </td>
 
             </tr>
             {% empty %}

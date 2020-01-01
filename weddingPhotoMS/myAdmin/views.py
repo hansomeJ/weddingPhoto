@@ -222,7 +222,9 @@ def showBv(request, id):
         allBv = bv.objects.all()
         # print(dir(allBv[0]))
         return render(request, 'admin/showAllBv.html', {'allBv': allBv})
-
+    if id != 0:
+        Bv = bv.objects.get(pk=id)
+        return render(request, 'admin/showBv.html', {'bv': Bv})
 
 def updateBv(request, id):
     targetBv = bv.objects.get(pk=id)

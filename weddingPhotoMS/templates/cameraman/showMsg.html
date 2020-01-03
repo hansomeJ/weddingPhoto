@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'js/lib/bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common1.css' %}">
+    <script type="text/javascript" src="{% static 'js/lib/jQuery3.2.1/jquery-3.2.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <!--    <meta charset="UTF-8">-->
+    <!--    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>-->
+</head>
+<body>
+<div class="container-fluid" style="height: 100px">
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title text-center"> 个人信息</h2>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-bordered table-striped">
+                    <tr>
+                        <td>账号</td>
+                        <td>{{ user.ca_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>昵称</td>
+                        <td>{{ user.ca_nickName }}</td>
+                    </tr>
+                    <tr>
+                        <td>头像</td>
+                        <td><img src="/{{ user.ca_image }}" alt="..." style="height: 80px"></td>
+                    </tr>
+                    <tr>
+                        <td>简介</td>
+                        <td>{{ user.ca_detail }}</td>
+                    </tr>
+                    <tr>
+                        <td>等级</td>
+                        <td>{{ user.ca_lv }}</td>
+                    </tr>
+                    <tr>
+                        <td>性别</td>
+                        <td>{{ user.ca_gender }}</td>
+                    </tr>
+                    <tr>
+                        <td>注册时间</td>
+                        <td>{{ user.ca_regisTime }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

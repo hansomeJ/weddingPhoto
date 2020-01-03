@@ -1,5 +1,151 @@
 {% extends 'base.html' %}
-{% block title %} 管理员首页 {% endblock %}
+{% block title %} 摄影师首页 {% endblock %}
+{% block nav %}
+{% endblock %}
 {% block middle %}
-<h1>摄影师首页</h1>
+{% load static %}
+<!--<div style="margin:20px 0;"></div>-->
+<div class="easyui-layout" style="width:100%;height:700px">
+    <div data-options="region:'north'" style="height:60px">
+        <h3 class="text-center">蒙娜丽莎婚纱摄影</h3>
+    </div>
+    <div data-options="region:'south',split:true" style="height:50px;">123</div>
+    <div data-options="region:'west',split:true" title="West" style="width:200px;">
+        <ul class="easyui-tree" data-options="animate:true">
+            <li>
+                <span>功能列表</span>
+                <ul>
+                    <li>
+                        <span>个人信息</span>
+                        <ul>
+
+                            <li>
+                                <a onclick=addTab('查看个人信息','http://127.0.0.1:8000/cameraman/showMsg/')>查看个人信息</a>
+                            </li>
+
+                            <li>
+                                <a onclick=addTab('修改个人信息','http://127.0.0.1:8000/myAdmin/showBvs/')>修改个人信息</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <span>订单和评论</span>
+                        <ul>
+                            <li>
+                                <a onclick=addTab('查看订单','http://127.0.0.1:8000/customer/addOrder/')>查看订单</a>
+                            </li>
+                            <li>
+                                <a onclick=addTab('查看评论','http://127.0.0.1:8000/customer/showOrder/0/all/')>查看评论</a>
+
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li><a onclick=addTab('查看公告','http://127.0.0.1:8000/myAdmin/noticeShow/')>查看公告</a></li>
+                    <li><a href="{% url 'Admin:logout' %}">退出登录</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div data-options="region:'center',title:'当前用户：{{ request.session.login_user.name }}',iconCls:'icon-ok'" id="">
+        <div id="tt" class="easyui-tabs">
+            <div title="首页" style="padding:10px ">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        {% for s in space %}
+                        {% if forloop.first %}
+                        <div class="item active">
+                            <img src="/{{ s.s_image }}" alt="...">
+                            <div class="carousel-caption">
+                                <h3>{{ s.s_name }}</h3>
+                                <p>{{ s.s_detail }}</p>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="item">
+                            <img src="/{{ s.s_image }}" alt="...">
+                            <div class="carousel-caption">
+                                <h3>{{ s.s_name }}</h3>
+                                <p>{{ s.s_detail }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% empty %}
+                        <div class="item active">
+                            <img src="{% static 'img/space/201911/20191125222732_14.jpg' %}" alt="...">
+                            <div class="carousel-caption">
+                                <h3>人间仙境拍照圣地</h3>
+                                <p>介绍</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="{% static 'img/space/201911/20191125222811_9.jpg' %}" alt="...">
+                            <div class="carousel-caption">
+                                <h3>人间仙境，拍照圣地</h3>
+                                <p>11</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="{% static 'img/space/201911/20191125222847_9.jpg' %}" alt="...">
+                            <div class="carousel-caption">
+                                <h3>...</h3>
+                                <p>...</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--<div style="margin-bottom:10px">-->
+<!--    <a href="#" class="easyui-linkbutton" onclick="addTab('google','http://www.google.com')">google</a>-->
+<!--    <a href="#" class="easyui-linkbutton" onclick="addTab('jquery','http://jquery.com/')">jquery</a>-->
+<!--    <a href="#" class="easyui-linkbutton" onclick="addTab('easyui','http://jeasyui.com/')">easyui</a>-->
+<!--</div>-->
+{% block Tab %}
+<script>
+
+    function addTab(title, url) {
+        if ($('#tt').tabs('exists', title)) {
+            $('#tt').tabs('select', title);
+        } else {
+            url_left = '{% url ';
+            url_right = ' % }';
+            url_real = url_left + "'" + url + "'" + url_right;
+            console.log(url_real);
+            var content = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:1000px;"></iframe>';
+            $('#tt').tabs('add', {
+                title: title,
+                content: content,
+                closable: true,
+                refresh: true,
+            });
+        }
+    }
+</script>
+{% endblock %}
 {% endblock %}

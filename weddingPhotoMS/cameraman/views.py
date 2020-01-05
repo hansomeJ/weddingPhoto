@@ -34,3 +34,13 @@ def showMsg(request):
     print(name)
     user = Cameraman.objects.get(ca_name=name)
     return render(request, 'cameraman/showMsg.html', {"user": user})
+
+
+def updateMsg(request):
+    if request.method == 'GET':
+        name = request.session['login_cameraman']['name']
+        print(name)
+        user = Cameraman.objects.get(ca_name=name)
+        return render(request, 'cameraman/updateMsg.html', {"ca": user})
+    else:
+        pass

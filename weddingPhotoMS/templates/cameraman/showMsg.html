@@ -33,7 +33,11 @@
                     </tr>
                     <tr>
                         <td>昵称</td>
+                        {% if user.ca_nickName %}
                         <td>{{ user.ca_nickName }}</td>
+                        {% else %}
+                        <td>无</td>
+                        {% endif %}
                     </tr>
                     <tr>
                         <td>头像</td>
@@ -41,7 +45,11 @@
                     </tr>
                     <tr>
                         <td>简介</td>
+                        {% if user.ca_detail %}
                         <td>{{ user.ca_detail }}</td>
+                        {% else %}
+                        <td>无</td>
+                        {% endif %}
                     </tr>
                     <tr>
                         <td>等级</td>

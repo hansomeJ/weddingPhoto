@@ -29,7 +29,7 @@ class Comment_Space(models.Model):
 class Comment_Camerman(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='评论主键')
     c_content = models.TextField(verbose_name='场地评价')
-    c_space = models.ForeignKey(to=Cameraman, to_field='id', on_delete=models.CASCADE, verbose_name='外键，指向摄影师')
+    c_cameraman = models.ForeignKey(to=Cameraman, to_field='id', on_delete=models.CASCADE, verbose_name='外键，指向摄影师')
     c_customer = models.ForeignKey(to=Customer, to_field='id', verbose_name='外键，指向顾客')
     c_time = models.DateTimeField(auto_now_add=True,verbose_name='评论时间')
 

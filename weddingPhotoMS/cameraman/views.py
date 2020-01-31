@@ -44,3 +44,58 @@ def updateMsg(request):
         return render(request, 'cameraman/updateMsg.html', {"ca": user})
     else:
         pass
+
+
+# def showOrder(request):
+#     if request.method == 'GET':
+#         ca_name = request.session['login_cameraman']['name']
+#         user = Cameraman.objects.get(ca_name=ca_name)
+#         order = Order.objects.filter(order_cameraman=user)
+#         return render(request, 'cameraman/updateMsg.html', {"ca": user})
+def showOrder(request, id, type):
+    ca_name = request.session['login_cameraman']['name']
+    user = Cameraman.objects.get(ca_name=ca_name)
+    if type == 'all':
+        all = Order.objects.filter(order_cameraman=user)
+        return render(request, 'cameraman/showOrders.html', {'order': all})
+    elif type == 'photo':
+        all = Order.objects.filter(order_cameraman=user, order_status='待拍摄')
+        return render(request, 'cameraman/showOrders.html', {'order': all})
+    elif type == 'get':
+        all = Order.objects.filter(order_cameraman=user, order_status='待取片')
+        return render(request, 'cameraman/showOrders.html', {'order': all})
+    elif type == 'comment':
+        all = Order.objects.filter(order_cameraman=user, order_status='待评价')
+        return render(request, 'cameraman/showOrders.html', {'order': all})
+    elif type == 'end':
+        all = Order.objects.filter(order_cameraman=user, order_status='已完成')
+        return render(request, 'cameraman/showOrders.html', {'order': all})
+    else:
+        order = Order.objects.get(order_cameraman=user, pk=id)
+        return render(request, 'cameraman/showOrder.html', {'order': order})
+
+
+def updateOrder(request, id):
+    order = Order.objects.get(pk=id)
+    if request.method == 'POST':
+        selectTime = request.POST.get('selectTime', None)
+        getTime = request.POST.get('getTime', None)
+        print(selectTime,getTime)
+        if selectTime != None:
+            try:
+                order.order_selectTime = selectTime
+                order.order_status = '待取片'
+                order.save()
+                return render(request, 'cameraman/showOrder.html', {'order': order})
+            except Exception as e:
+                print(e)
+                return render(request, 'cameraman/showOrder.html', {'order': order, 'msg': '修改失败'})
+        if getTime != None:
+            try:
+                order.order_getTime = getTime
+                order.order_status = '待评价'
+                order.save()
+                return render(request, 'cameraman/showOrder.html', {'order': order})
+            except Exception as e:
+                print(e)
+                return render(request, 'cameraman/showOrder.html', {'order': order, 'msg': '修改失败'})

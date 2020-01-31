@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'js/lib/bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common1.css' %}">
+    <link rel="stylesheet" href="{% static 'js/lib/My97DatePicker/skin/WdatePicker.css' %}">
+    <script type="text/javascript" src="{% static 'js/lib/My97DatePicker/WdatePicker.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/jQuery3.2.1/jquery-3.2.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <!--    <meta charset="UTF-8">-->
+    <!--    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>-->
+</head>
+<body>
+<div class="container-fluid" style="height: 100px">
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title text-center"> 添加评论 {{ msg }}</h2>
+            </div>
+            <div class="panel-body">
+                <form action="{% url "comment:addComment" order.id %}" method="post">
+                    {% csrf_token %}
+                    {% if order.order_bv.all %}
+                        {% for b in order.order_bv.all %}
+                            <div class="form-group">
+                                <label for="bv{{ forloop.counter }}">婚纱{{ forloop.counter }}</label>
+                                <textarea class="form-control" id="bv{{ forloop.counter }}"
+                                       name="bv{{ forloop.counter }}" placeholder="请评价婚纱#{{ b.bv_name }}#..." required cols="30" rows="3"></textarea>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if order.order_bvs %}
+                        <div class="form-group">
+                            <label for="bvs">婚纱组</label>
+                            <textarea class="form-control" id="bvs" name="bvs" placeholder="请评价婚纱组#{{ order.order_bvs.bvs_name }}#..." required cols="30" rows="3"></textarea>
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="space">场地</label>
+                        <textarea class="form-control" id="space" name="space" placeholder="请评价场地#{{ order.order_space.s_name }}#..." required cols="30" rows="3"></textarea>
+                    </div>
+                    <div >
+                        <label for="cameraman">摄影师</label>
+                        <textarea class="form-control" id="cameraman" name="cameraman" cols="10" rows="3" placeholder="请评价摄影师#{{ order.order_cameraman.ca_name }}#..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary ">提交评论</button>
+                        <div class="col-sm-4" ></div>
+                        <input type="button" class="btn btn-default" name="Submit" onclick="javascript:history.back(-1);" value="返回上一页">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

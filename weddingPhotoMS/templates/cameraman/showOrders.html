@@ -34,16 +34,16 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="{% url 'customer:showOrder' id=0 type='all' %}">全部订单</a></li>
-                            <li><a href="{% url 'customer:showOrder' id=0 type='photo' %}">待拍摄</a></li>
-                            <li><a href="{% url 'customer:showOrder' id=0 type='get' %}">待取片</a></li>
-                            <li><a href="{% url 'customer:showOrder' id=0 type='comment' %}">待评价</a></li>
-                            <li><a href="{% url 'customer:showOrder' id=0 type='end' %}">已完成</a></li>
+                            <li><a href="{% url 'cameraman:showOrder' id=0 type='all' %}">全部订单</a></li>
+                            <li><a href="{% url 'cameraman:showOrder' id=0 type='photo' %}">待拍摄</a></li>
+                            <li><a href="{% url 'cameraman:showOrder' id=0 type='get' %}">待取片</a></li>
+                            <li><a href="{% url 'cameraman:showOrder' id=0 type='comment' %}">待评价</a></li>
+                            <li><a href="{% url 'cameraman:showOrder' id=0 type='end' %}">已完成</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav nav-pills navbar-nav navbar-center">
-                    <li>{{ msg }}</li>
+                    <li>{{msg}}</li>
                 </ul>
             </div>
 
@@ -61,26 +61,22 @@
                 <td class="success">操作</td>
             </tr>
             {% for o in order %}
-                <tr>
-                    <td class="active">{{ forloop.counter }}</td>
-                    <td class="warning">{{ o.order_nameOne }}</td>
-                    <td class="danger">{{ o.order_nameTwo }}</td>
-                    <td class="active">{{ o.order_cameraman.ca_name }}</td>
-                    <td class="danger">{{ o.order_moneyNum }}</td>
-                    <td class="success">{{ o.order_status }}</td>
-                    <td class="warning">
-                        <span>
-                            <a href="{% url 'customer:showOrder' id=o.id type='detail' %}" class="btn btn-primary text-center">查看</a>
-                            {% if o.order_status == '待评价' %}
-                                <a href="{% url 'comment:addComment' id=o.id %}" class="btn btn-primary text-center">评论</a>
-                            {% endif %}
-                        </span>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td>还没有该订单信息</td>
-                </tr>
+            <tr>
+                <td class="active">{{ forloop.counter }}</td>
+                <td class="warning">{{ o.order_nameOne }}</td>
+                <td class="danger">{{ o.order_nameTwo }}</td>
+                <td class="active">{{ o.order_cameraman.ca_name }}</td>
+                <td class="danger">{{ o.order_moneyNum }}</td>
+                <td class="success">{{ o.order_status }}</td>
+                <td class="warning">
+                    <a href="{% url 'cameraman:showOrder' id=o.id type='detail' %}" class="btn btn-primary text-center">查看</a>
+                </td>
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td>还没有该订单信息</td>
+            </tr>
 
             {% endfor %}
 

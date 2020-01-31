@@ -20,6 +20,8 @@ class Customer(models.Model):
 # 创建订单表
 class Order(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='订单主键')
+    order_owner = models.ForeignKey(to=Customer, to_field='id', null=True, on_delete=models.SET_NULL,
+                                    verbose_name='用户')
     order_nameOne = models.CharField(max_length=50, null=True, verbose_name='男方姓名')
     order_nameTwo = models.CharField(max_length=50, null=True, verbose_name='女方姓名')
     order_phoneNum = models.CharField(max_length=11, null=True, verbose_name='联系电话')

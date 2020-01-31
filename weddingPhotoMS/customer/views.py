@@ -35,6 +35,8 @@ def addOrder(request):
     allbvs = bvs.objects.all()
     space = Space.objects.all()
     cameraman = Cameraman.objects.all()
+    name = request.session['login_user']['name']
+    user = Customer.objects.get(cs_name=name)
     if request.method == 'GET':
         return render(request, 'customer/makeOrder.html',
                       {'msg': '请认真填写以下内容！', 'allBv': allbv, 'allBvs': allbvs, 'space': space, 'cameraman': cameraman})
@@ -72,7 +74,8 @@ def addOrder(request):
         # except Exception as e:
         #     print(e)
         if inlineRadioOptions == 'bv':
-            order = Order.objects.create(order_nameOne=nameOne, order_nameTwo=nameTwo, order_phoneNum=phoneNum,
+            order = Order.objects.create(order_owner=user, order_nameOne=nameOne, order_nameTwo=nameTwo,
+                                         order_phoneNum=phoneNum,
                                          order_space=mySpace, order_cameraman=cameraMan, order_photographTime=myTime)
             bvSet = bv.objects.filter(Q(pk=bv1) | Q(pk=bv2) | Q(pk=bv3) | Q(pk=bv4))
             price = 0
@@ -93,7 +96,7 @@ def addOrder(request):
                               {'msg': '添加订单失败！', 'allBv': allbv, 'allBvs': allbvs, 'space': space,
                                'cameraman': cameraman})
         else:
-            order = Order(order_nameOne=nameOne, order_nameTwo=nameTwo, order_phoneNum=phoneNum,
+            order = Order(order_owner=user,order_nameOne=nameOne, order_nameTwo=nameTwo, order_phoneNum=phoneNum,
                           order_space=mySpace, order_cameraman=cameraMan, order_photographTime=myTime)
             order.order_bvs = myBvs
             order.order_moneyNum = myBvs.bvs_prices
@@ -110,18 +113,23 @@ def addOrder(request):
 
 
 def showOrder(request, id, type):
+    name = request.session['login_user']['name']
+    user = Customer.objects.get(cs_name=name)
     if type == 'all':
-        all = Order.objects.all()
+        all = Order.objects.filter(order_owner=user)
         return render(request, 'customer/showOrders.html', {'order': all})
-    elif type == 'ptoto':
-        all = Order.objects.filter(order_status='待拍摄')
+    elif type == 'photo':
+        all = Order.objects.filter(order_owner=user, order_status='待拍摄')
         return render(request, 'customer/showOrders.html', {'order': all})
     elif type == 'get':
-        all = Order.objects.filter(order_status='待取片')
+        all = Order.objects.filter(order_owner=user, order_status='待取片')
         return render(request, 'customer/showOrders.html', {'order': all})
     elif type == 'comment':
-        all = Order.objects.filter(order_status='待评价')
+        all = Order.objects.filter(order_owner=user, order_status='待评价')
+        return render(request, 'customer/showOrders.html', {'order': all})
+    elif type == 'end':
+        all = Order.objects.filter(order_owner=user, order_status='已完成')
         return render(request, 'customer/showOrders.html', {'order': all})
     else:
-        order = Order.objects.get(pk=id)
+        order = Order.objects.get(order_owner=user, pk=id)
         return render(request, 'customer/showOrder.html', {'order': order})

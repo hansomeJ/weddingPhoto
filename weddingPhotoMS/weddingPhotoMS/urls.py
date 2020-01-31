@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^myAdmin/', include('myAdmin.urls', namespace='Admin')),
     url(r'^cameraman/', include('cameraman.urls', namespace='cameraman')),
     url(r'^customer/', include('customer.urls', namespace='customer')),
+    url(r'^comment/', include('comment.urls', namespace='comment')),
     url(r'', views.index),
     url(r'^ueditor/', include('DjangoUeditor.urls'))
 ]

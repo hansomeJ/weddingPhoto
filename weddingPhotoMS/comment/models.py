@@ -4,6 +4,7 @@ from myAdmin.models import Bridal_Veils as bvs
 from myAdmin.models import Space
 from cameraman.models import Cameraman
 from customer.models import Customer
+from customer.models import Order
 
 
 # Create your models here.
@@ -11,6 +12,7 @@ from customer.models import Customer
 # 婚纱评论
 class Comment_Bv(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='评论主键')
+    order = models.ForeignKey(to=Order,to_field='id',on_delete=models.CASCADE,null=True,verbose_name='所属订单')
     c_content = models.TextField(verbose_name='婚纱评价')
     c_bvId = models.ForeignKey(to=bv, to_field='id', on_delete=models.CASCADE, verbose_name='外键，指向婚纱id')
     c_customerId = models.ForeignKey(to=Customer, to_field='id', on_delete=models.CASCADE,verbose_name='外键，指向顾客')
@@ -19,6 +21,7 @@ class Comment_Bv(models.Model):
 # 场地评论
 class Comment_Space(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='评论主键')
+    order = models.ForeignKey(to=Order,to_field='id',on_delete=models.CASCADE,null=True,verbose_name='所属订单')
     c_content = models.TextField(verbose_name='场地评价')
     c_spaceId = models.ForeignKey(to=Space, to_field='id', on_delete=models.CASCADE, verbose_name='外键，指向场地')
     c_customerId = models.ForeignKey(to=Customer, to_field='id',on_delete=models.CASCADE, verbose_name='外键，指向顾客')
@@ -28,6 +31,7 @@ class Comment_Space(models.Model):
 # 摄影师评论
 class Comment_Camerman(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='评论主键')
+    order = models.ForeignKey(to=Order,to_field='id',on_delete=models.CASCADE,null=True,verbose_name='所属订单')
     c_content = models.TextField(verbose_name='场地评价')
     c_cameraman = models.ForeignKey(to=Cameraman, to_field='id', on_delete=models.CASCADE, verbose_name='外键，指向摄影师')
     c_customer = models.ForeignKey(to=Customer, to_field='id', verbose_name='外键，指向顾客')
@@ -37,6 +41,7 @@ class Comment_Camerman(models.Model):
 # 婚纱组评论
 class Comment_Bvs(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='评论主键')
+    order = models.ForeignKey(to=Order,to_field='id',on_delete=models.CASCADE,null=True,verbose_name='所属订单')
     c_content = models.TextField(verbose_name='婚纱组评价')
     c_bvs = models.ForeignKey(to=bvs, to_field='id', on_delete=models.CASCADE, verbose_name='外键，指向婚纱组id')
     c_customer = models.ForeignKey(to=Customer, to_field='id', verbose_name='外键，指向顾客')

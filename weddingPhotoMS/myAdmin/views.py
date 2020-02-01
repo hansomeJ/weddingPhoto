@@ -226,6 +226,7 @@ def showBv(request, id):
         Bv = bv.objects.get(pk=id)
         return render(request, 'admin/showBv.html', {'bv': Bv})
 
+
 def updateBv(request, id):
     targetBv = bv.objects.get(pk=id)
     if request.method == 'GET':
@@ -340,16 +341,18 @@ def addBvs(request):
 
 
 # 展示婚纱组
-def showBvs(request):
-    if request.method == 'GET':
+def showBvs(request, id):
+    if request.method == 'GET' and id == '0':
         allBvs = bvs.objects.all().order_by('-bvs_sale_num')
         # print(allBvs)
 
         for bv in allBvs:
             s = bv.bvs_bv.all()
             # print(s)
-
         return render(request, 'admin/showAllBvs.html', {'allBvs': allBvs})
+    if id != 0:
+        Bvs = bvs.objects.filter(pk=id)
+        return render(request, 'admin/showBvs.html', {'allBvs': Bvs})
 
 
 # 删除婚纱组
@@ -400,10 +403,13 @@ def addSpace(request):
 
 
 # 显示所有场地函数
-def showSpace(request):
-    if request.method == 'GET':
+def showSpace(request, id):
+    if request.method == 'GET' and id == '0':
         space = Space.objects.all()
         return render(request, 'admin/showAllSpace.html', {'space': space})
+    if id != 0:
+        space = Space.objects.get(pk=id)
+        return render(request, 'admin/showSpace.html', {'space': space})
 
 
 # 删除场地函数
@@ -530,3 +536,8 @@ def updateCameraMan(request, id):
         except Exception as e:
             print(e)
             return render(request, 'admin/updateCameraman.html', {'ca': cameraman, 'msg': '修改失败！'})
+
+
+def showMsg(request, id):
+    cameraman = Cameraman.objects.get(pk=id)
+    return render(request, 'admin/showMsg.html', {'user': cameraman})

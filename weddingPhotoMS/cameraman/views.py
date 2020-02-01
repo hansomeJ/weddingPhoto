@@ -14,7 +14,10 @@ from myAdmin.models import Notice
 from cameraman.models import Cameraman
 from customer.models import Customer
 from customer.models import Order
-
+from comment.models import Comment_Bv
+from comment.models import Comment_Bvs
+from comment.models import Comment_Space
+from comment.models import Comment_Camerman
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST, require_http_methods, require_safe
 
@@ -99,3 +102,11 @@ def updateOrder(request, id):
             except Exception as e:
                 print(e)
                 return render(request, 'cameraman/showOrder.html', {'order': order, 'msg': '修改失败'})
+
+def showComment(request):
+    name = request.session['login_cameraman']['name']
+    user = Cameraman.objects.get(ca_name=name)
+    # order = Order.objects.get(pk=id, order_owner=user)
+    cameraman_comments = Comment_Camerman.objects.filter(c_cameraman=user)
+    return render(request, 'cameraman/showcomment.html',
+                  {'cameraman': cameraman_comments})

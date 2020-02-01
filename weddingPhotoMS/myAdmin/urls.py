@@ -23,13 +23,13 @@ urlpatterns = [
     # 添加婚纱组路由
     url(r'addBvs/', views.addBvs, name='addBvs'),
     # 查看婚纱组路由
-    url(r'showBvs/', views.showBvs, name='showBvs'),
+    url(r'showBvs/(\d+)/', views.showBvs, name='showBvs'),
     # 删除婚纱组路由
     url(r'deleteBvs/(\d+)/', views.deleteBvs, name='deleteBvs'),
     # 添加场地路由
     url(r'addSpace/', views.addSpace, name='addSpace'),
     # 查看场地路由
-    url(r'showSpace/', views.showSpace, name='showSpace'),
+    url(r'showSpace/(\d+)/', views.showSpace, name='showSpace'),
     # 删除场地路由
     url(r'deleteSpace/(\d+)/', views.deleteSpace, name='deleteSpace'),
     # 更新场地路由
@@ -44,5 +44,7 @@ urlpatterns = [
     url(r'cameraMan/(\d+)/', views.cameraMan, name='cameraMan'),
     # 修改摄影师等级
     url(r'updateCameraMan/(\d+)/', views.updateCameraMan, name='updateCameraMan'),
+    # 查看摄影师详细信息
+    url(r'showMsg/(\d+)/', views.showMsg, name='showMsg'),
 
 ]

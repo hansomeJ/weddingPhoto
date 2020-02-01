@@ -26,14 +26,10 @@
     <div class="col-md-9">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h2 class="panel-title text-center"> 个人信息</h2>
+                <h2 class="panel-title text-center"> 摄影师信息</h2>
             </div>
             <div class="panel-body">
                 <table class="table table-hover table-bordered table-striped">
-                    <tr>
-                        <td>账号</td>
-                        <td>{{ user.ca_name }}</td>
-                    </tr>
                     <tr>
                         <td>昵称</td>
                         {% if user.ca_nickName %}
@@ -66,7 +62,35 @@
                         <td>注册时间</td>
                         <td>{{ user.ca_regisTime }}</td>
                     </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="col-sm-5">
+
+                            </div>
+                            <input class="btn btn-primary" type="button" name="Submit"
+                                   onclick="javascript:history.back(-1);" value="返回">
+                        </td>
+                    </tr>
                 </table>
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h2 class="panel-title text-center">摄影师评论</h2>
+            </div>
+            <div class="panel-body">
+                {% if user.comment_camerman_set %}
+                {% for b in user.comment_camerman_set.all %}
+                <div class="row text-center ">
+                    订单号：{{ b.order.id }}&nbsp;&nbsp;摄影师：{{ b.c_cameraman.ca_name }}&nbsp;&nbsp;评论时间：{{b.c_time}}
+                </div>
+                <hr>
+                <p class="content">
+                    {{b.c_content | safe }}
+                </p>
+                <hr>
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

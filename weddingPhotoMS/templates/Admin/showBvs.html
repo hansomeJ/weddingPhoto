@@ -25,14 +25,11 @@
         <!-- Default panel contents -->
 
         <div class="panel-heading" style="height: 50px">
-
-            操作：
             {% if request.session.login_admin %}
+            操作：
             <a class="btn btn-danger" href="{% url 'Admin:deleteBvs' bvs.id %}">删除</a>
             {% endif %}
-            <a class="btn btn-primary" href="{% url 'Admin:showBvs' bvs.id %}">详情</a>
-
-
+            <input class="btn btn-primary" type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回">
             <span class="col-sm-3">组名：{{ bvs.bvs_name }}</span>
             <span class="col-sm-3">价格：{{ bvs.bvs_prices }}</span>
             <span class="col-sm-3">热度：{{ bvs.bvs_sale_num }}</span>
@@ -60,7 +57,27 @@
 
         </table>
     </div>
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">婚纱组评论</h2>
+        </div>
+        <div class="panel-body">
+            {% if bvs.comment_bvs_set %}
+            {% for b in bvs.comment_bvs_set.all %}
+            <div class="row text-center ">
+                订单号：{{ b.order.id }}&nbsp;&nbsp;婚纱组：{{ b.c_bvs.bvs_name }}&nbsp;&nbsp;评论时间：{{b.c_time}}
+            </div>
+            <hr>
+            <p class="content">
+                {{b.c_content | safe }}
+            </p>
+            <hr>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
     {% endfor %}
+
 </div>
 </body>
 </html>

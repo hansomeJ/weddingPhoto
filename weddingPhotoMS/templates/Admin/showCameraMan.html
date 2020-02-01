@@ -72,9 +72,7 @@
                 <td class="warning">性别</td>
                 <td class="danger">简介</td>
                 <td class="active">等级</td>
-                {% if request.session.login_admin %}
                 <td class="success">操作</td>
-                {% endif %}
             </tr>
             {% for ca in cameraman %}
             <tr>
@@ -86,12 +84,17 @@
                 <td class="danger">{{ ca.ca_gender }}</td>
                 <td class="active">{{ ca.ca_detail | truncatechars:10 }}</td>
                 <td class="danger">{{ ca.ca_lv }}</td>
-                {% if request.session.login_admin %}
+
                 <td class="success">
+                    {% if request.session.login_admin %}
                     <a href="{% url 'Admin:updateCameraMan' ca.id %}" class="btn btn-primary"
                        role="button">修改</a>
+                    {% endif %}
+                    <a href="{% url 'Admin:showMsg' ca.id %}" class="btn btn-primary"
+                       role="button">详情</a>
                 </td>
-                {% endif %}
+
+
             </tr>
             {% empty %}
             <tr>

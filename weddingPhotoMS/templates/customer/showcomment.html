@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'js/lib/bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common1.css' %}">
+    <script type="text/javascript" src="{% static 'js/lib/jQuery3.2.1/jquery-3.2.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <!--    <meta charset="UTF-8">-->
+    <!--    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/metro/easyui.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/mobile.css' %}">-->
+    <!--    <link rel="stylesheet" type="text/css" href="{% static 'js/lib/easyui/themes/icon.css' %}">-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.min.js' %}"></script>-->
+    <!--    <script type="text/javascript" src="{% static 'js/lib/easyui/jquery.easyui.mobile.js' %}"></script>-->
+</head>
+<body>
+<div class="container-fluid" style="height: 100px">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h2 class="panel-title text-center">我的评论</h2>
+            </div>
+            <div class="panel-body">
+                {% if bv %}
+                    {% for b in bv %}
+                    <div class="row text-center ">
+                        订单号：{{ b.order.id }}&nbsp;&nbsp;婚纱：{{ b.c_bvId.bv_name }}&nbsp;&nbsp;评论时间：{{b.c_time}}
+                    </div>
+                    <hr>
+                    <p class="content">
+                        {{b.c_content | safe }}
+                    </p>
+                <hr>
+                    {% endfor %}
+                {% endif %}
+                {% if bvs %}
+                    {% for b in bvs %}
+                    <div class="row text-center ">
+                        订单号：{{ b.order.id }}&nbsp;&nbsp;婚纱组：{{ b.c_bvs.bvs_name }}&nbsp;&nbsp;评论时间：{{b.c_time}}
+                    </div>
+                    <hr>
+                    <p class="content">
+                        {{b.c_content | safe }}
+                    </p>
+                <hr>
+                    {% endfor %}
+                {% endif %}
+                {% if space %}
+                    {% for b in space %}
+                    <div class="row text-center ">
+                        订单号：{{ b.order.id }}&nbsp;&nbsp;场地：{{ b.c_spaceId.s_name }}&nbsp;&nbsp;评论时间：{{b.c_time}}
+                    </div>
+                    <hr>
+                    <p class="content">
+                        {{b.c_content | safe }}
+                    </p>
+                <hr>
+                    {% endfor %}
+                {% endif %}
+                {% if cameraman %}
+                    {% for b in cameraman %}
+                    <div class="row text-center ">
+                        订单号：{{ b.order.id }}&nbsp;&nbsp;摄影师：{{ b.c_cameraman.ca_name }}&nbsp;&nbsp;评论时间：{{b.c_time}}
+                    </div>
+                    <hr>
+                    <p class="content">
+                        {{b.c_content | safe }}
+                    </p>
+                <hr>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

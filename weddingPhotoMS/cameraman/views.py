@@ -40,21 +40,34 @@ def showMsg(request):
 
 
 def updateMsg(request):
+    name = request.session['login_cameraman']['name']
+    user = Cameraman.objects.get(ca_name=name)
     if request.method == 'GET':
-        name = request.session['login_cameraman']['name']
-        print(name)
-        user = Cameraman.objects.get(ca_name=name)
         return render(request, 'cameraman/updateMsg.html', {"ca": user})
     else:
-        pass
+        nickName = request.POST.get('name')
+        detail = request.POST.get('detail')
+        gender = request.POST.get('gender')
+        image = request.FILES.get('photoImage')
+        type_list = ['.jpg', '.png']
+        # 判断上传图片格式
+        imgtype = os.path.splitext(image.name)[1].lower()
+        if imgtype not in type_list:
+            return render(request, 'cameraman/updateMsg.html', {"ca": user, 'msg': '只支持png或者jpg格式的文件！'})
+
+        try:
+            user.ca_nickName = nickName
+            user.ca_detail = detail
+            user.ca_gender = gender
+            os.remove(str(user.ca_image))
+            user.ca_image = image
+            user.save()
+            return render(request, 'cameraman/updateMsg.html', {"ca": user, 'msg': '修改信息成功！'})
+        except Exception as e:
+            print(e)
+            return render(request, 'cameraman/updateMsg.html', {"ca": user, 'msg': '修改信息失败！'})
 
 
-# def showOrder(request):
-#     if request.method == 'GET':
-#         ca_name = request.session['login_cameraman']['name']
-#         user = Cameraman.objects.get(ca_name=ca_name)
-#         order = Order.objects.filter(order_cameraman=user)
-#         return render(request, 'cameraman/updateMsg.html', {"ca": user})
 def showOrder(request, id, type):
     ca_name = request.session['login_cameraman']['name']
     user = Cameraman.objects.get(ca_name=ca_name)
@@ -83,7 +96,7 @@ def updateOrder(request, id):
     if request.method == 'POST':
         selectTime = request.POST.get('selectTime', None)
         getTime = request.POST.get('getTime', None)
-        print(selectTime,getTime)
+        print(selectTime, getTime)
         if selectTime != None:
             try:
                 order.order_selectTime = selectTime
@@ -102,6 +115,7 @@ def updateOrder(request, id):
             except Exception as e:
                 print(e)
                 return render(request, 'cameraman/showOrder.html', {'order': order, 'msg': '修改失败'})
+
 
 def showComment(request):
     name = request.session['login_cameraman']['name']
